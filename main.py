@@ -4,13 +4,13 @@ from discord.player import FFmpegPCMAudio
 import requests
 import pydub
 import time
+import sys
 
-TOKEN = ''
+TOKEN = sys.argv[1]
 client = discord.Client()
 
 voiceChannel: VoiceChannel
 textChannel = 0
-#speaker = [{"speaker": 2, "user": 'root'}]
 queue = []
 is_playing = False
 flag = False
@@ -47,29 +47,28 @@ async def on_message(message):
         await message.channel.send('退出したよ!')
         await voiceChannel.disconnect()
         flag = False
-	return
+        return
     
     if message.content == '!about':
-	await message.channel.send("https://voicevox.hiroshiba.jp/ VOICEVOX:四国めたん VOICEVOX:ずんだもん VOICEVOX:春日部つむぎ VOICEVOX:雨晴はう VOICEVOX:波音リツ VOICEVOX:玄\\
-        野武宏 VOICEVOX:白上虎太郎 VOICEVOX:青山龍星 VOICEVOX:冥鳴ひまり VOICEVOX:九州そら VOICEVOX:もち子(cv 明日葉よもぎ)")
+        await message.channel.send("https://voicevox.hiroshiba.jp/ VOICEVOX:四国めたん VOICEVOX:ずんだもん VOICEVOX:春日部つむぎ VOICEVOX:雨晴はう VOICEVOX:波音リツ VOICEVOX:玄野武宏 VOICEVOX:白上虎太郎 VOICEVOX:青山龍星 VOICEVOX:冥鳴ひまり VOICEVOX:九州そら VOICEVOX:もち子(cv 明日葉よもぎ)")
         
-	arg = message.content.split(' ')
+        arg = message.content.split(' ')
         
-	if arg[0] == '!v':
-	    if int(arg[1]) <= 0 and int(arg[1]) >= 20:
-		return
+        if arg[0] == '!v':
+            if int(arg[1]) <= 0 and int(arg[1]) >= 20:
+                return
             
             speaker = arg[1]
             
-	    if message.channel == textChannel:
-                if message.content.startswith('!'):
-                    return
-		if flag:
-                    print("flag")
-                    if message.author.voice.channel == voiceChannel:
-                        return
-                    addAudioToQueue(message.content)
-                    genAudio(queue, is_playing)
+    if message.channel == textChannel:
+        if message.content.startswith('!'):
+            return
+        if flag:
+            print("flag")
+            if message.author.voice.channel == voiceChannel:
+                return
+            addAudioToQueue(message.content)
+            genAudio(queue, is_playing)
                     
 def addAudioToQueue(text):
     print("queue")
