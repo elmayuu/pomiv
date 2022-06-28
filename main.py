@@ -5,7 +5,7 @@ import requests
 import pydub
 import time
 
-TOKEN = 'OTkxMTUzNDIwODM0NzEzNjYx.GKm529.yMDya7UiQyX3Yf-1q-bmrNHUTApeJoK75ffOWk'
+TOKEN = ''
 client = discord.Client()
 
 voiceChannel: VoiceChannel
